@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -36,6 +37,7 @@ public class Login extends JPanel implements ActionListener {
 	JPasswordField passTF = new JPasswordField();
 	JButton login = new JButton("Login");
 	JButton register = new JButton("Register");
+	JLabel mess = new JLabel();
 	
 	JPanel loginP = new JPanel(new GridLayout(3,2));
 	JPanel panel = new JPanel();// using to swap

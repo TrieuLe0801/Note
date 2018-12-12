@@ -97,8 +97,7 @@ public class Register extends JPanel implements ActionListener{
 		else mess.setText("Please enter full information.");
 		if(e.getSource() == back){
 			Login login = (Login) getParent();
-			mess.setText("You registered successful.");
-			login.add(mess);
+			login.mess.setText("You registered successful");
 			login.cl.show(login, "login");
 		}
 	}
