@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,9 +24,9 @@ import javax.swing.JTextField;
 public class Register extends JPanel implements ActionListener{
 	JLabel userL = new JLabel("Choose a Username: ");
 	JTextField userTF = new JTextField();
-	JLabel passL = new JLabel("Password");
+	JLabel passL = new JLabel("Password: ");
 	JPasswordField passTF = new JPasswordField();
-	JLabel passLC = new JLabel("Confirm Password");
+	JLabel passLC = new JLabel("Confirm Password: ");
 	JPasswordField passC = new JPasswordField();
 	JButton register = new JButton("Register");
 	JButton back = new JButton("Back");
@@ -55,8 +56,10 @@ public class Register extends JPanel implements ActionListener{
 			
 			String pass = new String(passTF.getPassword());
 			String confirm = new String(passC.getPassword());
-			
-			if(pass.equals(confirm)){
+			if(userTF.getText().length() <= 6 || pass.length() <= 6) {
+				mess.setText("Username or Passwords must be at least 6 characters");
+			}
+			else if(pass.equals(confirm)){
 				try {
 					DBConnection newConn = new  DBConnection();
 					User checkedUser = newConn.checkUser(userTF.getText());
@@ -89,10 +92,13 @@ public class Register extends JPanel implements ActionListener{
 					e1.printStackTrace();
 				}
 			}
-			else mess.setText("Double check password");
+			else mess.setText("confirmed passwords and passwords do not match.");
 		}
+		else mess.setText("Please enter full information.");
 		if(e.getSource() == back){
 			Login login = (Login) getParent();
+			mess.setText("You registered successful.");
+			login.add(mess);
 			login.cl.show(login, "login");
 		}
 	}
