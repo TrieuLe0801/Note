@@ -52,6 +52,7 @@ public class EditingNote extends JApplet implements ActionListener {
 	JButton save = new JButton("Save");
 	JButton delete = new JButton("Delete");
 	JButton back = new JButton("Back");
+	JButton cancelAlert = new JButton ("Cancel Alert");
 	JTextField titleTF = new JTextField();
 	JTextArea noteArea = new JTextArea(20,40);
 	JPanel Writing_note = new JPanel(new GridLayout(4,2));
@@ -74,6 +75,7 @@ public class EditingNote extends JApplet implements ActionListener {
 		save.addActionListener(this);
 		delete.addActionListener(this);
 		back.addActionListener(this);
+		cancelAlert.addActionListener(this);
 		
 		GroupLayout layout = new GroupLayout(contentPane);
 		
@@ -88,6 +90,7 @@ public class EditingNote extends JApplet implements ActionListener {
 				    		  .addComponent(save)
 				    		  .addComponent(alertL)
 				    		  .addComponent(datePicker)
+				    		  .addComponent(cancelAlert)
 				    		  .addComponent(delete)
 				    		  .addComponent(back))
 				      .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -102,6 +105,7 @@ public class EditingNote extends JApplet implements ActionListener {
 				    		  .addComponent(save)
 				    		  .addComponent(alertL)
 				    		  .addComponent(datePicker)
+				    		  .addComponent(cancelAlert)
 				    		  .addComponent(delete)
 				    		  .addComponent(back))
 				      .addGroup(layout.createSequentialGroup()
@@ -113,6 +117,10 @@ public class EditingNote extends JApplet implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		//set Cancel button
+		if(e.getSource() == cancelAlert) {
+			datePicker.getModel().setValue(null);
+		}
 		//set Back button
 		if(e.getSource() == back){
 			Login login = (Login) getParent();
