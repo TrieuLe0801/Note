@@ -75,8 +75,13 @@ public class EditingNote extends JApplet implements ActionListener {
 			titleTF.setText(note.getTitle());
 			noteArea.setText(note.getContent());
 			Date alert = (Date) note.getAlertDate();
-			this.model.setValue(alert);
-			model.setSelected(true);
+			if(alert != null) {
+				this.model.setValue(alert);
+				model.setSelected(true);
+			}
+			else {
+				datePicker.getModel().setValue(null);
+			}
 		}
 		save.addActionListener(this);
 		delete.addActionListener(this);
@@ -179,52 +184,56 @@ public class EditingNote extends JApplet implements ActionListener {
 			if(getTitleValue.equals("")||getContentValue.equals("")) {
 				notification.setText("Please enter all information of the note.");
 			}
-			if(getTitleValue.length() >= 255 || getContentValue.length() >= 255) {
-				notification.setText("No more than 255 characters.");
-			}
-			if(getDatePickerValue != null && currentDate.before(getDatePickerValue) == false) {
-				notification.setText("Alerted date must be after currentDate");
-			}
 			else {
-				try {
-					if(note == null) {
-						if(getDatePickerValue != null) {
-							conn.insertNote(new Note(getContentValue,getTitleValue,currentDate,ownerId,getDatePickerValue));
-						}
-						else {
-							conn.insertNote(new Note(getContentValue,getTitleValue,currentDate,ownerId));
-						}
+				if(getTitleValue.length() >= 255 || getContentValue.length() >= 255) {
+					notification.setText("No more than 255 characters.");
+				}
+				else {
+					if(getDatePickerValue != null && currentDate.before(getDatePickerValue) == false) {
+						notification.setText("Alerted date must be after currentDate");
 					}
 					else {
-						note.setTitle(getTitleValue);
-						note.setContent(getContentValue);
-						note.setCreatedDate(currentDate);
-						note.setAlertDate(getDatePickerValue);
-						conn.updateNote(note);
+						try {
+							if(note == null) {
+								if(getDatePickerValue != null) {
+									conn.insertNote(new Note(getContentValue,getTitleValue,currentDate,ownerId,getDatePickerValue));
+								}
+								else {
+									conn.insertNote(new Note(getContentValue,getTitleValue,currentDate,ownerId));
+								}
+							}
+							else {
+								note.setTitle(getTitleValue);
+								note.setContent(getContentValue);
+								note.setCreatedDate(currentDate);
+								note.setAlertDate(getDatePickerValue);
+								conn.updateNote(note);
+							}
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						Login login = (Login) getParent();
+						if(fromCalendar == true) {
+							try {
+								login.add(new CalendarBrowser(this.ownerId),"cal");
+							} catch (IllegalAccessException | InstantiationException | SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							login.cl.show(login, "cal");
+						}
+						else{
+							try {
+						
+							login.add(new FileBrowser(this.ownerId),"fb");
+						} catch (IllegalAccessException | InstantiationException | SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+							}
+							login.cl.show(login, "fb");
+						}
 					}
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				Login login = (Login) getParent();
-				if(fromCalendar == true) {
-					try {
-						login.add(new CalendarBrowser(this.ownerId),"cal");
-					} catch (IllegalAccessException | InstantiationException | SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					login.cl.show(login, "cal");
-				}
-				else{
-					try {
-				
-					login.add(new FileBrowser(this.ownerId),"fb");
-				} catch (IllegalAccessException | InstantiationException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					}
-					login.cl.show(login, "fb");
 				}
 			}
 		}
