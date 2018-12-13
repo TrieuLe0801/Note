@@ -38,11 +38,15 @@ public class Login extends JPanel implements ActionListener {
 	JButton login = new JButton("Login");
 	JButton register = new JButton("Register");
 	JLabel mess = new JLabel();
-	
-	JPanel loginP = new JPanel(new GridLayout(3,2));
+	boolean checkRegister ;
+	JPanel loginP = new JPanel(new GridLayout(4,2));
 	JPanel panel = new JPanel();// using to swap
 	CardLayout cl;
-	Login(){
+	Login(boolean checkRegister){
+		this.checkRegister = checkRegister;
+		if(this.checkRegister == true) {
+			mess.setText("You registered successfull.");
+		}
 //		set layout in card
 		setLayout(new CardLayout());
 		loginP.add(userL);
@@ -55,6 +59,7 @@ public class Login extends JPanel implements ActionListener {
 		// add two button to panel
 		loginP.add(login);
 		loginP.add(register);
+		loginP.add(mess);
 		
 		panel.add(loginP);
 		add(panel, "login");
@@ -113,7 +118,7 @@ public class Login extends JPanel implements ActionListener {
 		JFrame frame = new JFrame("Note-taking editor");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);;
 		frame.setSize(500, 500);
-		Login login = new Login();
+		Login login = new Login(false);
 		frame.add(login);
 		frame.setVisible(true);
 		

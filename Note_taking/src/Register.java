@@ -74,6 +74,7 @@ public class Register extends JPanel implements ActionListener{
 						newConn.insertUser(new User(userTF.getText(),hash));
 						
 						Login login = (Login) getParent();
+						login.add(new Login(true),"login");
 						login.cl.show(login, "login");
 					}
 					else mess.setText("User already exists");
@@ -97,7 +98,7 @@ public class Register extends JPanel implements ActionListener{
 		else mess.setText("Please enter full information.");
 		if(e.getSource() == back){
 			Login login = (Login) getParent();
-			login.mess.setText("You registered successful");
+			login.add(new Login(false),"login");
 			login.cl.show(login, "login");
 		}
 	}
