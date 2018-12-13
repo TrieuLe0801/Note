@@ -141,6 +141,7 @@ public class EditingNote extends JApplet implements ActionListener {
 					e1.printStackTrace();
 				}
 			}
+			notification.setText("Delete successfull.");
 		}
 		//set Delete button
 		if(e.getSource() == delete) {
