@@ -68,6 +68,7 @@ public class CalendarBrowser extends JApplet implements ActionListener {
 	    String [] columns = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 	    model = new DefaultTableModel(null,columns);
 	    table = new JTable(model);
+	    table.setEnabled(false);
 	    JScrollPane pane = new JScrollPane(table);
  
 	    calPanel.add(panel,BorderLayout.NORTH);
