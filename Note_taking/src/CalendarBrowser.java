@@ -169,7 +169,7 @@ public class CalendarBrowser extends JApplet implements ActionListener {
 						int noteId = Integer.parseInt(i);
 						Login login = (Login) getParent();
 						try {
-							login.add(new EditingNote(noteId,userId),"EN");
+							login.add(new EditingNote(noteId,userId,true),"EN");
 						} catch (IllegalAccessException | InstantiationException | SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -237,7 +237,6 @@ public class CalendarBrowser extends JApplet implements ActionListener {
 		DBConnection newConn = new  DBConnection();
 		ArrayList<Note> notes = newConn.browseAlertNoteList(userId, selectedDate); //new java.sql.Date(selectedDate.getTime()));
 		return notes;
-		
 	}
  
 }

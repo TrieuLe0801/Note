@@ -102,7 +102,7 @@ public class FileBrowser extends JApplet implements ActionListener{
 			// add new object is EditingNote()
 
 			try {
-				login.add(new EditingNote(0,this.userId),"EN");
+				login.add(new EditingNote(0,this.userId,false),"EN");
 			} catch (IllegalAccessException | InstantiationException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -138,7 +138,7 @@ public class FileBrowser extends JApplet implements ActionListener{
 			int noteId = Integer.parseInt(i);
 			Login login = (Login) getParent();
 			try {
-				login.add(new EditingNote(noteId,this.userId),"EN");
+				login.add(new EditingNote(noteId,this.userId,false),"EN");
 			} catch (IllegalAccessException | InstantiationException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
