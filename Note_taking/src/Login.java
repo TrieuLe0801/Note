@@ -39,7 +39,8 @@ public class Login extends JPanel implements ActionListener {
 	JButton register = new JButton("Register");
 	JLabel mess = new JLabel();
 	boolean checkRegister ;
-	JPanel loginP = new JPanel(new GridLayout(4,2));
+	JPanel loginP = new JPanel(new GridLayout(3,2));
+	JPanel loginM = new JPanel(new GridLayout(1,1));
 	JPanel panel = new JPanel();// using to swap
 	CardLayout cl;
 	Login(boolean checkRegister){
@@ -59,9 +60,10 @@ public class Login extends JPanel implements ActionListener {
 		// add two button to panel
 		loginP.add(login);
 		loginP.add(register);
-		loginP.add(mess);
+		loginM.add(mess);
 		
 		panel.add(loginP);
+		panel.add(loginM);
 		add(panel, "login");
 		cl = (CardLayout) getLayout();
 	}
@@ -126,7 +128,7 @@ public class Login extends JPanel implements ActionListener {
 	public static void main(String[] args) throws IllegalAccessException, InstantiationException, SQLException {
 		JFrame frame = new JFrame("Note-taking editor");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);;
-		frame.setSize(500, 500);
+		frame.setSize(1000, 680);
 		Login login = new Login(false);
 		frame.add(login);
 		frame.setVisible(true);

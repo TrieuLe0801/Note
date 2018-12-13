@@ -27,6 +27,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+
 //Date pickle
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -37,7 +41,8 @@ import org.jdatepicker.impl.UtilDateModel;
 
 public class EditingNote extends JApplet implements ActionListener {
 
-	int noteId, ownerId;
+	int noteId, ownerId,dot,mark;
+	String selected;
 	boolean fromCalendar;
 	//Set date picker
 	SqlDateModel model = new SqlDateModel();
@@ -54,10 +59,11 @@ public class EditingNote extends JApplet implements ActionListener {
 	JButton back = new JButton("Back");
 	JButton cancelAlert = new JButton ("Cancel Alert");
 	JTextField titleTF = new JTextField();
-	JTextArea noteArea = new JTextArea(20,40);
+	JTextArea noteArea = new JTextArea(40,60);
 	JPanel Writing_note = new JPanel(new GridLayout(4,2));
 	Container contentPane = getContentPane();
 	DBConnection conn = new DBConnection();
+	
 	Note note = null;
 	@SuppressWarnings("deprecation")
 	public EditingNote(int noteId, int ownerId, boolean fromCalendar) throws SQLException, IllegalAccessException, InstantiationException{
@@ -173,6 +179,9 @@ public class EditingNote extends JApplet implements ActionListener {
 			if(getTitleValue.equals("")||getContentValue.equals("")) {
 				notification.setText("Please enter all information of the note.");
 			}
+			if(getTitleValue.length() >= 255 || getContentValue.length() >= 255) {
+				notification.setText("No more than 255 characters.");
+			}
 			if(getDatePickerValue != null && currentDate.before(getDatePickerValue) == false) {
 				notification.setText("Alerted date must be after currentDate");
 			}
@@ -214,10 +223,10 @@ public class EditingNote extends JApplet implements ActionListener {
 				} catch (IllegalAccessException | InstantiationException | SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+					}
+					login.cl.show(login, "fb");
 				}
-				login.cl.show(login, "fb");
 			}
-		}
 		}
 	}
 }

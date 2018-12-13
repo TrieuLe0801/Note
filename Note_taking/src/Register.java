@@ -34,7 +34,9 @@ public class Register extends JPanel implements ActionListener{
 	
 	public Register(){
 		JPanel loginP = new JPanel();
-		loginP.setLayout(new GridLayout(5,2));
+		JPanel loginM = new JPanel();
+		loginP.setLayout(new GridLayout(4,2));
+		loginM.setLayout(new GridLayout(1,1));
 		loginP.add(userL);
 		loginP.add(userTF);
 		loginP.add(passL);
@@ -43,10 +45,11 @@ public class Register extends JPanel implements ActionListener{
 		loginP.add(passC);
 		loginP.add(register);
 		loginP.add(back);
-		loginP.add(mess);
+		loginM.add(mess);
 		register.addActionListener(this);
 		back.addActionListener(this);
 		add(loginP);
+		add(loginM);
 	}
 
 	@Override
