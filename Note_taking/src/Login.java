@@ -69,48 +69,52 @@ public class Login extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource() == login && passTF.getPassword().length>0 && userTF.getText().length()>0) {
-			try {
-				// replace by db
-				DBConnection newConn = new DBConnection();
-				User checkedUser =  newConn.checkUser(userTF.getText());
-				
-				//based on username, correct password is return in variable pass
-				//we hash input password  
-				MessageDigest md = MessageDigest.getInstance("SHA-1");
-				String toHash = new String(passTF.getPassword());
-				md.update(toHash.getBytes(),0, toHash.length() );
-				String hash = null;
-				hash = new BigInteger(1,md.digest()).toString(16).substring(0, 29);
-				
-				//and then compare these two
-				if(checkedUser != null && checkedUser.getPassword().equals(hash)) {
+		if(e.getSource() == login) {
+			if(passTF.getPassword().length>0 && userTF.getText().length()>0) {
+				try {
+					// replace by db
+					DBConnection newConn = new DBConnection();
+					User checkedUser =  newConn.checkUser(userTF.getText());
 					
-					add(new FileBrowser(checkedUser.getuserId()),"fb");
-					cl.show(this, "fb");
-					System.out.println("You have loged in");
-					passTF.setText("");
-					userTF.setText("");
+					//based on username, correct password is return in variable pass
+					//we hash input password  
+					MessageDigest md = MessageDigest.getInstance("SHA-1");
+					String toHash = new String(passTF.getPassword());
+					md.update(toHash.getBytes(),0, toHash.length() );
+					String hash = null;
+					hash = new BigInteger(1,md.digest()).toString(16).substring(0, 29);
+					
+					//and then compare these two
+					if(checkedUser != null && checkedUser.getPassword().equals(hash)) {
+						
+						add(new FileBrowser(checkedUser.getuserId()),"fb");
+						cl.show(this, "fb");
+						System.out.println("You have loged in");
+						passTF.setText("");
+						userTF.setText("");
+					}
+					else {
+						mess.setText("Username or Password is not correct. Please check again");
+						passTF.setText("");
+						userTF.setText("");
+					}
+				} catch (NoSuchAlgorithmException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IllegalAccessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InstantiationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-				else {
-					mess.setText("Username or Password is not correct. Please check again");
-					passTF.setText("");
-					userTF.setText("");
-				}
-			} catch (NoSuchAlgorithmException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IllegalAccessException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (InstantiationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			}
-			
+			else {
+				mess.setText("You have to provide all information.");
+			}
 		}
 		if(e.getSource() == register) {
 			passTF.setText("");
