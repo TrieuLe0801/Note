@@ -38,6 +38,7 @@ import org.jdatepicker.impl.UtilDateModel;
 public class EditingNote extends JApplet implements ActionListener {
 
 	int noteId, ownerId;
+	boolean fromCalendar;
 	//Set date picker
 	SqlDateModel model = new SqlDateModel();
 	JDatePanelImpl datePanel = new JDatePanelImpl(model, new Properties());
@@ -58,9 +59,10 @@ public class EditingNote extends JApplet implements ActionListener {
 	DBConnection conn = new DBConnection();
 	Note note = null;
 	@SuppressWarnings("deprecation")
-	public EditingNote(int noteId, int ownerId) throws SQLException, IllegalAccessException, InstantiationException{
+	public EditingNote(int noteId, int ownerId, boolean fromCalendar) throws SQLException, IllegalAccessException, InstantiationException{
 		this.noteId = noteId;
 		this.ownerId = ownerId;
+		this.fromCalendar = fromCalendar;
 		if(this.noteId!=0) {
 			note = conn.selectNote(this.noteId);
 			titleTF.setText(note.getTitle());
@@ -114,13 +116,24 @@ public class EditingNote extends JApplet implements ActionListener {
 		//set Back button
 		if(e.getSource() == back){
 			Login login = (Login) getParent();
-			try {
-				login.add(new FileBrowser(this.ownerId),"fb");
-			} catch (IllegalAccessException | InstantiationException | SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			if(fromCalendar == true) {
+				try {
+					login.add(new CalendarBrowser(this.ownerId),"cal");
+				} catch (IllegalAccessException | InstantiationException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				login.cl.show(login, "cal");
 			}
-			login.cl.show(login, "fb");
+			else {
+				try {
+					login.add(new FileBrowser(this.ownerId),"fb");
+				} catch (IllegalAccessException | InstantiationException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				login.cl.show(login, "fb");
+			}
 		}
 		if(e.getSource() == delete) {
 			titleTF.setText("");
@@ -177,7 +190,18 @@ public class EditingNote extends JApplet implements ActionListener {
 					e1.printStackTrace();
 				}
 				Login login = (Login) getParent();
-				try {
+				if(fromCalendar == true) {
+					try {
+						login.add(new CalendarBrowser(this.ownerId),"cal");
+					} catch (IllegalAccessException | InstantiationException | SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					login.cl.show(login, "cal");
+				}
+				else{
+					try {
+				
 					login.add(new FileBrowser(this.ownerId),"fb");
 				} catch (IllegalAccessException | InstantiationException | SQLException e1) {
 					// TODO Auto-generated catch block
@@ -185,6 +209,7 @@ public class EditingNote extends JApplet implements ActionListener {
 				}
 				login.cl.show(login, "fb");
 			}
+		}
 		}
 	}
 }

@@ -169,7 +169,7 @@ public class CalendarBrowser extends JApplet implements ActionListener {
 						int noteId = Integer.parseInt(i);
 						Login login = (Login) getParent();
 						try {
-							login.add(new EditingNote(noteId,userId),"EN");
+							login.add(new EditingNote(noteId,userId,true),"EN");
 						} catch (IllegalAccessException | InstantiationException | SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
