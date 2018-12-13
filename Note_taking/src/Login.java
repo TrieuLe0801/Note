@@ -92,6 +92,11 @@ public class Login extends JPanel implements ActionListener {
 					passTF.setText("");
 					userTF.setText("");
 				}
+				else {
+					mess.setText("Username or Password is not correct. Please check again");
+					passTF.setText("");
+					userTF.setText("");
+				}
 			} catch (NoSuchAlgorithmException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
