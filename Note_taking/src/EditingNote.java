@@ -143,21 +143,6 @@ public class EditingNote extends JApplet implements ActionListener {
 			}
 			notification.setText("Delete successfull.");
 		}
-		//set Delete button
-		if(e.getSource() == delete) {
-			titleTF.setText("");
-			noteArea.setText("");
-			//set datePicker is null
-			datePicker.getModel().setValue(null);
-			if(note != null) {
-				try {
-					conn.deleteNote(this.noteId);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		}
 		//set condition for save note (Update or insert new one)
 		if(e.getSource() == save) {
 			String getTitleValue = titleTF.getText();
