@@ -130,6 +130,7 @@ public class FileBrowser extends JApplet implements ActionListener{
 		}
 		else if (e.getSource() == logOut) {
 			Login login = (Login) getParent();
+			login.add(new Login(false),"login");
 			login.cl.show(login, "login");
 		}
 		else{

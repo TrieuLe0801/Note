@@ -166,6 +166,9 @@ public class EditingNote extends JApplet implements ActionListener {
 			if(getTitleValue.equals("")||getContentValue.equals("")) {
 				notification.setText("Please enter all information of the note.");
 			}
+			if(getDatePickerValue != null && currentDate.before(getDatePickerValue) == false) {
+				notification.setText("Alerted date must be after currentDate");
+			}
 			else {
 				try {
 					if(note == null) {
